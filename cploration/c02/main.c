@@ -88,11 +88,11 @@ void reverse(char* txt, char* result) {
  * returns: integer count of vowels
  */
 int vowels(char* txt) {
+	
 	int vowel = 0;
-
 	for (int i = 0; txt[i]!='\0';i++){
-		if ((txt[i]=='a')||(txt[i]=='e')||(txt[i]=='i')||(txt[i]=='o')||(txt[i]=='u')){
-			vowel+=1;
+		if ((tolower(txt[i])=='a')||(tolower(txt[i])=='e')||(tolower(txt[i])=='i')||(tolower(txt[i])=='o')||(tolower(txt[i])=='u')){
+			vowel++;
 	}
 	}
 
@@ -115,9 +115,10 @@ int vowels(char* txt) {
  * returns: integer quarter [1..4]
  */
 int quartile(char* name) {
-	if (strcmp(name,"F") >0){
-		if (strcmp(name,"L") >0){
-			if (strcmp(name,"R") >0){
+	name[0] = tolower((unsigned char)name[0]);
+	if (strcmp(name,"fz")>0){
+		if (strcmp(name,"lz") >0){
+			if (strcmp(name,"rz") >0){
 					return 4;
 			}else{ return 3;}
 		}else{ return 2;}
