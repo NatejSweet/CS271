@@ -13,6 +13,12 @@ CHIP Xor {
     OUT out;
 
     PARTS:
+<<<<<<< HEAD
     And(a=a,b=b,out=c);
 	Not(in=c,out=out); 
+=======
+	Or(a=a,b=b,out=c);
+	Nand(a=a,b=b,out=d);
+	And(a=c,b=d,out=out);
+>>>>>>> 698c0471bb8b0449437cb6477c7e9a86c8496a4c
 }
