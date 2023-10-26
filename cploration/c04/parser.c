@@ -1,8 +1,8 @@
 /****************************************
  * C-ploration 4 for CS 271
  * 
- * [NAME] $YOUR_NAME$
- * [TERM] FALL $YEAR$
+ * [NAME] Nathan Sweet
+ * [TERM] FALL 2023
  * 
  ****************************************/
 #include "parser.h"
@@ -16,12 +16,17 @@
  * returns: the stripped char* string
  */
 char *strip(char *s){	
-	char *s_new[sizeof(s)+1] ={0};
+	char *s_new = (char*)malloc(strlen(s)+1);
 	int i = 0;
 	for (char *s2 = s; *s2; s2++) { 
 		if (*s2 =='/' && *(s2+1)=='/'){
+			if (*(s2-1)){
+				s_new[i++]='\n';
+			}
 			break;
-		}else if (isspace(*s2)){
+		}if (*s2 == '\n' && *(s2-1)){
+			s_new[i++]='\n';
+		}else if (!isspace(*s2)){
 			s_new[i++]=*s2;
 		}
 	}
@@ -40,11 +45,10 @@ char *strip(char *s){
  */
 void parse(FILE * file){
 	char line[MAX_LINE_LENGTH] = {0};
-	unasigned int line_num = 0;
 	
-	While (fgets(line,sizeof(line),file)){
-		strip(line)
-		if (!*line){
+	while (fgets(line,sizeof(line),file)){
+		strip(line);
+		if (line[0] != '\0'){
 			printf("%s",line);
 		}
 	}
