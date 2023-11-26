@@ -22,7 +22,7 @@ char *strip(char *s){
 	for (char *s2 = s; *s2; s2++) { 
 		if (*s2 =='/' && *(s2+1)=='/'){
 			if (*(s2-1)){
-				s_new[i++]='\n';
+				s_new[i++]='\0';
 			}
 			break;
 		}if (*s2 == '\n' && *(s2-1)){
@@ -46,8 +46,8 @@ char *strip(char *s){
  */
 void parse(FILE * file){
 	char line[MAX_LINE_LENGTH] = {0};
-	int line_number;
-	int instr_num;
+	unsigned int line_number = 0;
+	unsigned int instr_num = 0;
 	
 	while (fgets(line,sizeof(line),file)){
 		line_number++;
@@ -56,32 +56,33 @@ void parse(FILE * file){
 			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS+1);
 		}
 		strip(line);
-		if (line[0] != '\n' && line[0] != '\0'){
-			
+		if (line[0] != '\n' && line[0] != '\0' && line[0] != '/'){
+			// line_number++;
+			// instr_num++;
 			if (is_Atype(line)){
 				inst_type = 'A';
 			}else if (is_label(line)){
 				inst_type = 'L';
 				char* extracted_line = extract_label(line);
-				if (!isalpha(line[0])){
-					exit_program(EXIT_INVALID_LABEL, line_number,line);
+				if (!isalpha(line[1])){
+					exit_program(EXIT_INVALID_LABEL, line_number,extracted_line);
 				}
-				if (symtable_find(extracted_line)){
-					exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_number,line);
+				if (symtable_find(extracted_line)!=NULL){
+					exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_number,extracted_line);
 				}
 				symtable_insert(extracted_line, instr_num);
 				continue;
 				strcpy(line, extracted_line);
-				line_number--;
+				// line_number--;
 				
 			}else if (is_Ctype(line)){
 				inst_type = 'C';
 			}
 			// printf("%c  %s", inst_type, line);
 			
-		}
-		printf("%u: %c  %s\n", line_number, inst_type, line);
+		printf("%u: %c  %s\n", instr_num, inst_type, line);
 		instr_num++;
+		}
 	}
 	
 	

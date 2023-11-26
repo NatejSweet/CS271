@@ -49,8 +49,8 @@ struct Symbol* symtable_find(char* name) {
    //move in array until an empty 
    while(hashArray[hashIndex] != NULL) {
 	
-      if(strcmp(hashArray[hashIndex]->name, name) == 1) {
-         printf("%s was found\n", name);
+      if(strcmp(hashArray[hashIndex]->name, name) == 0) {
+         // printf("%s was found\n", name);
          return hashArray[hashIndex]; 
       }
 			
@@ -60,7 +60,6 @@ struct Symbol* symtable_find(char* name) {
       //wrap around the table
       hashIndex %= SYMBOL_TABLE_SIZE;
    }        
-	
    return NULL;        
 }
 void symtable_display_table() {

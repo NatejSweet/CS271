@@ -19,7 +19,7 @@ void exit_program(enum exitcode code, ...){
     va_list arguments;
     va_start(arguments, code);
 
-    printf("Error: ");
+    printf("ERROR: ");
     vprintf(error_messages[code], arguments);
     printf("\n");
 
