@@ -30,6 +30,6 @@ struct Symbol *symtable_find(char * key);
 void symtable_insert(char* key, hack_addr addr);
 void symtable_display_table();
 void symtable_print_labels();
-
+hack_addr symtable_get_address(char *key);
 
 #endif

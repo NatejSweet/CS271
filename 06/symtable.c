@@ -84,5 +84,7 @@ void symtable_print_labels() {
         }
    }
 } 
-
-
+hack_addr symtable_get_address(char *key){
+    int hashIndex = hash(key);
+    return hashArray[hashIndex]->address;
+};
